@@ -5,7 +5,7 @@ public class Salariat extends Pacient {
     private boolean adev_venit;
     private String angajator;
 
-    public Salariat(String nume, String cnp, boolean sex, int varsta, String[] fisa, boolean adeverinta, String ang) {
+    public Salariat(String nume, String cnp, int sex, int varsta, String[] fisa, boolean adeverinta, String ang) {
 
         super(nume, cnp, sex, varsta, fisa);
         this.adev_venit = adeverinta;

@@ -1,6 +1,8 @@
 package cabinet;
 import java.util.*;
 
+import cabinet.readwriteservice.WriteService;
+import cabinet.exceptions.FileWritingException;
 
 public class ProgramareService {
 
@@ -11,26 +13,22 @@ public class ProgramareService {
         System.out.println("3. Modificare programare");
         System.out.println("4. Anulare programare");
         System.out.println("5. Adaugare programare");
-        System.out.println("6. Inchidere");
+        System.out.println("0. Inchidere");
     }
 
-    public static void afisareProgramari(Programare[] lista){
+    public static void afisareProgramari(Map<Integer, Programare> programariMap){
 
-        System.out.println("Lista programarilor");
-        for (Programare p : lista )
-            System.out.println(p.toString());
+        System.out.println("Lista programarilor:\n");
+
+        for(Map.Entry<Integer,Programare> pair : programariMap.entrySet())
+            System.out.println("programarea "+pair.getKey() + " : "+pair.getValue());
+
+        //scriu in istoric
+        WriteService.writeIstoric("afisareListaProgramari",true);
     }
 
-    public static Programare[] adaugaProgramare(Programare[] lista, Programare p) {
 
-        Programare[] newLista = new Programare[lista.length + 1];
-        for(int i =0;i <lista.length;i++)
-            newLista[i] = lista[i];
-        newLista[lista.length] = p;
-        return newLista;
-    }
-
-    public static Programare[] adaugaDateProgramare(Programare[] lista, Programare p) {
+    public static Map<Integer, Programare> adaugaProgramare(Map<Integer, Programare>programariMap)  {
 
         System.out.println("Introduceti datele pentru programarea pe care doriti sa o adaugati:");
 
@@ -57,46 +55,51 @@ public class ProgramareService {
         Programare programare = new Programare(cod, nume_p, nume_d, data, ora, suma);
         System.out.println(programare.toString());
 
-        Programare[] listaNew= adaugaProgramare(lista,programare);
-        return listaNew;
+        Integer k = 0;
+        for(Map.Entry<Integer,Programare> pair : programariMap.entrySet())
+            k = pair.getKey();
+
+        programariMap.put(k+1,programare);
+
+        // scriu in istoric
+
+        WriteService.writeIstoric("adaugareProgramare",true);
+
+        return programariMap;
 
     }
 
-    public static Programare[] stergeProgramare(Programare[] lista){
-        Programare[] newList = new Programare[lista.length - 1];
-
+    public static Map<Integer, Programare> stergeProgramare(Map<Integer, Programare>programariMap){
         Scanner scanner1 = new Scanner(System.in);
-
-        System.out.println("Introduceti codul programarii care urmeaza sa fie eliminate: ");
-        String id_p = scanner1.nextLine();
-
-        int index = -1;
-
-        int ok = 0;
-
-        for (int i = 0; i < lista.length; i++) {
-
-            if (lista[i].getCod_prog().equals(id_p)) {
-
-                index = i;
-                ok = 1;
-                break;
-            }
-
-        }
-
-        if ( ok == 0) {
-            System.out.println("Nu s-a gasit programarea cu acest cod!");
-            return lista;
+        System.out.println("Introduceti numarul programarii pe care doriti sa o anulati :");
+        Integer key = scanner1.nextInt();
+        if (programariMap.containsKey(key)){
+            programariMap.remove(key);
         }
         else {
+            System.out.println("Nu s-a gasit nicio programare cu acest numar!");
+        }
 
-            for (int i = 0, j = 0; i < lista.length; i++) {
-                if (i != index) {
-                    newList[j++] = lista[i];
+        //afisez in istoric
+        WriteService.writeIstoric("eliminareProgramare",true);
+
+        return programariMap;
+
+    }
+
+    public static void cautaProgramare(Map<Integer, Programare> programareMap){
+        Scanner scanner2 = new Scanner(System.in);
+        System.out.println("Introduceti numarul programarii pe care doriti sa o gasiti :");
+        Integer key = scanner2.nextInt();
+        if (programareMap.containsKey(key)) {
+            for(Map.Entry<Integer,Programare> pair : programareMap.entrySet()) {
+                if (key == pair.getKey()){
+                    System.out.println("programarea "+pair.getKey() + " : "+pair.getValue());
                 }
             }
-        return newList;
+        } else {
+            System.out.println("Nu s-a gasit nicio programare cu acest numar!");
         }
+
     }
 }

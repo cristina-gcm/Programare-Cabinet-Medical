@@ -6,7 +6,7 @@ public class Pensionar extends Pacient{
     private String id_cupon;
     private int reducere;
 
-    public Pensionar(String nume, String cnp, boolean sex, int varsta, String[] fisa, String id_cupon, int pensie, int reducere) {
+    public Pensionar(String nume, String cnp, int sex, int varsta, String[] fisa, String id_cupon, int pensie, int reducere) {
 
         super(nume, cnp, sex, varsta, fisa);
         this.id_cupon = id_cupon;

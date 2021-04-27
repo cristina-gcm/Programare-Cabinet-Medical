@@ -4,7 +4,7 @@ public class Copil extends Pacient {
 
     private String tel_tutore;
 
-    public Copil(String nume, String cnp, boolean sex, int varsta, String[] fisa, String tel) {
+    public Copil(String nume, String cnp, int sex, int varsta, String[] fisa, String tel) {
 
         super(nume, cnp, sex, varsta, fisa);
         this.tel_tutore = tel;

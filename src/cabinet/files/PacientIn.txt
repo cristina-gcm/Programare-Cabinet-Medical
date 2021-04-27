@@ -1,0 +1,3 @@
+Ion Popescu,1240269411189,0,52,hipertensiune
+Miriam Popa,5190520114752,1,1,strabism
+Alexandru Anghel,6060500123456,0,20,bronsita cronica,laringita acuta,cefalee

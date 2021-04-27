@@ -5,16 +5,16 @@ import java.util.Objects;
 
 public class Pacient {
 
-    private boolean sex;
-    private String cnp;
     private String nume;
+    private String cnp;
+    private int sex;
     private int varsta;
     private String[] fisa_medicala;
 
     public Pacient() {
     }
 
-    public Pacient(String nume, String cnp, boolean sex, int varsta, String[] fisa) {
+    public Pacient(String nume, String cnp, int sex, int varsta, String[] fisa) {
 
         this.nume = nume;
         this.cnp = cnp;
@@ -32,11 +32,11 @@ public class Pacient {
         return this.nume;
     }
 
-    public void setSex(boolean s) {
+    public void setSex(int s) {
         this.sex = s;
     }
 
-    public boolean getSex() {
+    public int getSex() {
         return this.sex;
     }
 
@@ -59,11 +59,11 @@ public class Pacient {
         return this.varsta;
     }
 
-    public void setFisa_medicala(String[] fisa) {
+    public void setFisaMedicala(String[] fisa) {
         this.fisa_medicala = fisa;
     }
 
-    public String[] getFisa_medicala() {
+    public String[] getFisaMedicala() {
         return this.fisa_medicala;
     }
 

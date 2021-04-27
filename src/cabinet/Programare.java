@@ -11,6 +11,10 @@ public class Programare {
     private String ora;
     private int pret;
 
+    public Programare(){
+
+    }
+
     public Programare(String cod,String pacient, String doctor, String data, String ora, int tarif) {
 
         this.cod_prog = cod;
@@ -21,24 +25,24 @@ public class Programare {
         this.pret = tarif;
     }
 
-    public String getCod_prog() {
+    public String getCodProg() {
         return cod_prog;
     }
-    public void setCod_prog(String cod_prog) {
+    public void setCodProg(String cod_prog) {
         this.cod_prog = cod_prog;
     }
 
-    public String getNume_pacient() {
+    public String getNumePacient() {
         return nume_pacient;
     }
-    public void setNume_pacient(String nume_pacient) {
+    public void setNumePacient(String nume_pacient) {
         this.nume_pacient = nume_pacient;
     }
 
-    public String getNume_doctor() {
+    public String getNumeDoctor() {
         return nume_doctor;
     }
-    public void setNume_doctor(String nume_doctor) {
+    public void setNumeDoctor(String nume_doctor) {
         this.nume_doctor = nume_doctor;
     }
 
@@ -65,7 +69,7 @@ public class Programare {
 
     @Override
     public String toString() {
-        return "Pacientul " + nume_pacient + "are programare " + cod_prog + " pe data de" + data + " ora " + ora + ", la medicul " + nume_doctor + ". ";
+        return "Pacientul " + nume_pacient + " are programare " + cod_prog + " pe data de " + data + " ora " + ora + ", la medicul " + nume_doctor + ". ";
     }
 
     @Override
@@ -73,12 +77,12 @@ public class Programare {
         if (this == o) return true;
         if (!(o instanceof Programare)) return false;
         Programare programare = (Programare) o;
-        return getCod_prog() == programare.getCod_prog();
+        return getCodProg() == programare.getCodProg();
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(getCod_prog(), getNume_pacient());
+        int result = Objects.hash(getCodProg(), getNumePacient());
         result = 31 * result + getOra().hashCode();
         return result;
     }
