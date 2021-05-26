@@ -2,6 +2,8 @@ package cabinet;
 import java.util.*;
 import java.util.Scanner;
 
+import cabinet.repository.PacientRepository;
+
 import com.sun.jdi.event.ClassUnloadEvent;
 import cabinet.exceptions.FileWritingException;
 import cabinet.readwriteservice.WriteService;
@@ -15,6 +17,8 @@ public class PacientService {
         System.out.println("2. Afisare pacienti pensionari.");
         System.out.println("3. Afisare pacienti copii.");
         System.out.println("4. Adauga pacient.");
+        System.out.println("5.Editare varsta pacient.");
+        System.out.println("6.Stergere pacient.");
         System.out.println("0. Inchidere");
     }
     public static Pacient[] adaugaPacient(Pacient[] lista, Pacient p) {
@@ -23,6 +27,7 @@ public class PacientService {
         for(int i =0; i < lista.length; i++)
             newLista[i] = lista[i];
         newLista[lista.length] = p;
+        WriteService.writeIstoric("adaugaPacient",true);
         return newLista;
     }
 
@@ -31,7 +36,7 @@ public class PacientService {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("NUME PACIENT");
+        System.out.println("NUME PACIENT:");
         String nume = scanner.nextLine();
 
         System.out.println("CNP PACIENT: ");
@@ -48,12 +53,18 @@ public class PacientService {
 
         System.out.println("DIAGNOSTICE: ");
         String[] fisa = new String[nrDiagnostice];
-        for (int i = 0; i < nrDiagnostice; i++)
-            fisa[i] = scanner.next();
+        for (int i = 0; i < nrDiagnostice; i++) {
+            String afectiune = scanner.next();
+            fisa[i] = afectiune;}
 
         Pacient pacient = new Pacient(nume, cnp, sex, varsta, fisa);
-        System.out.println(pacient.toString());
+        //System.out.println(pacient.toString());
+
+
         Pacient[] listaNew = adaugaPacient(lista, pacient);
+
+        PacientRepository pacientRepository= new PacientRepository();
+        pacientRepository.insertPacient(pacient);
 
         return listaNew;
     }
@@ -83,4 +94,28 @@ public class PacientService {
         WriteService.writeIstoric("afisareCopii",true);
     }
 
+    public static void eliminarePacient(){
+        System.out.println("Introdceti id-ul clientului pe care doriti sa il eliminati :");
+        Scanner scanner = new Scanner(System.in);
+        int id = scanner.nextInt();
+
+        PacientRepository clientRepository = new PacientRepository();
+        clientRepository.deletePacient(id);
+
+        WriteService.writeIstoric("eliminarePacient",true);
+    }
+
+    public static void editareVarstaPacient() {
+
+        System.out.println("Introduceti id-ul persoanei careia doriti sa ii actualizati varsta :");
+        Scanner scanner = new Scanner(System.in);
+        int id = scanner.nextInt();
+        System.out.println("Introduceti noua valoare :");
+        int varsta = scanner.nextInt();
+
+        PacientRepository pacientRepository = new PacientRepository();
+        pacientRepository.updatePacientVarsta(id, varsta);
+
+        WriteService.writeIstoric("editareVarstaPacient",true);
+    }
 }

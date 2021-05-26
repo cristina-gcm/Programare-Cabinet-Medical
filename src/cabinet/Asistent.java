@@ -2,22 +2,17 @@ package cabinet;
 
 public class Asistent {
 
-    private String id_asistent;
+
     private String nume;
     private String medic;
 
-    public Asistent(String id_asistent, String nume, String medic) {
-        this.id_asistent = id_asistent;
+    public Asistent(String nume, String medic) {
+
         this.medic = medic;
         this.nume = nume;
     }
 
-    public String getId_asistent() {
-        return id_asistent;
-    }
-    public void setId_asistent(String id_asistent) {
-        this.id_asistent = id_asistent;
-    }
+
 
     public String getMedic() {
         return medic;

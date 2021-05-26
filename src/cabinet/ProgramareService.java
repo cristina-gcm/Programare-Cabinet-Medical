@@ -2,7 +2,6 @@ package cabinet;
 import java.util.*;
 
 import cabinet.readwriteservice.WriteService;
-import cabinet.exceptions.FileWritingException;
 
 public class ProgramareService {
 
@@ -10,9 +9,8 @@ public class ProgramareService {
         System.out.println("--- Meniu pentru gestionarea programarilor ---");
         System.out.println("1. Afisare toate programarile.");
         System.out.println("2. Cautare programare");
-        System.out.println("3. Modificare programare");
-        System.out.println("4. Anulare programare");
-        System.out.println("5. Adaugare programare");
+        System.out.println("3. Anulare programare");
+        System.out.println("4. Adaugare programare");
         System.out.println("0. Inchidere");
     }
 

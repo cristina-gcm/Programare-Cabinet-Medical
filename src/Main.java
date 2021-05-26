@@ -1,13 +1,20 @@
 import cabinet.*;
+import cabinet.repository.PacientRepository;
+
 import java.util.*;
 
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.Map;
 
 public class Main {
 
     public static void servicePacienti(Pacient[] listaPacienti) {
         PacientService.meniuPacienti();
+
+        PacientRepository pacientRepository = new PacientRepository();
+
+
         Scanner scanner = new Scanner(System.in);
         System.out.println();
         System.out.println("Alegeti o optiune :");
@@ -30,19 +37,57 @@ public class Main {
             //PacientService.afisarePacienti(listaPacienti);
             System.out.println("Urmatoarea optiune: ");
             op = scanner.nextInt();
+        } else if (op == 5) {
+            PacientService.editareVarstaPacient();
+            System.out.println("Urmatoarea optiune: ");
+            op = scanner.nextInt();
+        }   else if (op == 6) {
+            PacientService.eliminarePacient();
+            System.out.println("Urmatoarea optiune: ");
+            op = scanner.nextInt();
         } else if (op != 0) {
             System.out.println("Optiune invalida. Introduceti alta optiune!");
             op = scanner.nextInt();
         }
     }}
 
-    public static void serviceProgramari(Programare[] listaProgramari){
+    public static void serviceProgramari(Map<Integer, Programare>programareMap){
         ProgramareService.meniuProgramari();
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println();
+        System.out.println("Alegeti o optiune :");
+        int op = scanner.nextInt();
+        while (op != 0) {
+            if (op == 1){
+                ProgramareService.afisareProgramari(programareMap);
+                System.out.println("Urmatoarea optiune: ");
+                op = scanner.nextInt();
+            } else if (op == 2) {
+                ProgramareService.cautaProgramare(programareMap);
+                System.out.println("Urmatoarea optiune: ");
+                op = scanner.nextInt();
+            } else if (op == 3) {
+                ProgramareService.stergeProgramare(programareMap);
+                System.out.println("Urmatoarea optiune: ");
+                op = scanner.nextInt();
+            } else if (op == 4) {
+                programareMap = ProgramareService.adaugaProgramare(programareMap);
+                System.out.println("Urmatoarea optiune: ");
+                op = scanner.nextInt();
+            } else if (op != 0) {
+                System.out.println("Optiune invalida. Introduceti alta optiune!");
+                op = scanner.nextInt();
+            }
+        }
+
     }
 
     public static void main(String[] args) {
         //System.out.println("Hello World!");
 
+        PacientRepository pacientRepository = new PacientRepository();
+        pacientRepository.createTable();
 
         Programare programare1 = new Programare("12", "Andrei Popescu", "Alexandrina Maurer", "31.10.2021", "10:30", 100);
         //System.out.println(programare1.toString());
@@ -73,6 +118,12 @@ public class Main {
 
 
         Programare[] listaProgramari = new Programare[]{programare3, programare1, programare2};
+        Map<Integer, Programare> programariMap = new HashMap<>();
+
+        programariMap.put(1, programare1);
+        programariMap.put(2,programare2);
+        programariMap.put(3,programare3);
+
         Pacient[] listaPacienti = new Pacient[]{salariat1,copil1,copil2,pensionar1,pensionar2};
         //PacientService.adaugaPacient(listaPacienti, pacient1);
         //PacientService.afisarePacienti(listaPacienti);
@@ -99,7 +150,9 @@ public class Main {
 
         servicePacienti(listaPacienti);
 
+        serviceProgramari(programariMap);
 
+        //System.out.println(pacientRepository.getPacientById(0));
 
 
     }
